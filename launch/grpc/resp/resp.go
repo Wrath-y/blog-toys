@@ -2,7 +2,7 @@ package resp
 
 import (
 	"bytes"
-	"encoding/json"
+	"github.com/bytedance/sonic"
 	"strconv"
 	"toys/infrastructure/common/errcode"
 	"toys/infrastructure/util/util/highperf"
@@ -32,8 +32,7 @@ func Success(data any) (*proto.Response, error) {
 		res.Data = ""
 	default:
 		buf := bytes.NewBuffer(nil)
-		enc := json.NewEncoder(buf)
-		enc.SetEscapeHTML(false)
+		enc := sonic.ConfigDefault.NewEncoder(buf)
 		if err := enc.Encode(data); err != nil {
 			return nil, err
 		}

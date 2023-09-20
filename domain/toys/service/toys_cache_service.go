@@ -1,7 +1,7 @@
 package service
 
 import (
-	"encoding/json"
+	"github.com/bytedance/sonic"
 	"time"
 	"toys/domain/toys/repository/po"
 	"toys/infrastructure/util/goredis"
@@ -26,7 +26,7 @@ func (*ToysCache) GetFriendLinks() ([]po.FriendLink, error) {
 		return nil, err
 	}
 
-	if err := json.Unmarshal(b, &list); err != nil {
+	if err := sonic.Unmarshal(b, &list); err != nil {
 		return nil, err
 	}
 
@@ -34,7 +34,7 @@ func (*ToysCache) GetFriendLinks() ([]po.FriendLink, error) {
 }
 
 func (*ToysCache) SetFriendLinks(list []po.FriendLink) error {
-	b, err := json.Marshal(list)
+	b, err := sonic.Marshal(list)
 	if err != nil {
 		return err
 	}

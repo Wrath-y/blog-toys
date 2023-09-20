@@ -1,7 +1,7 @@
 package event
 
 import (
-	"encoding/json"
+	"github.com/bytedance/sonic"
 	"time"
 	"toys/infrastructure/common/context"
 )
@@ -40,7 +40,7 @@ func (b *Base) handleFunc(ctx *context.Context) error {
 
 func (b *Base) sendToMQ(ctx *context.Context) error {
 	// send to mq
-	bt, err := json.Marshal(b)
+	bt, err := sonic.Marshal(b)
 	if err != nil {
 		return err
 	}
